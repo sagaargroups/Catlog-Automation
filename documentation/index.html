@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog Automation by cloudfetch.tech</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a00e0;
+            --secondary: #8e2de2;
+            --accent: #00c6ff;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --success: #00d26a;
+            --warning: #ffcc00;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --blur-intensity: blur(15px);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--dark), #16213e);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-attachment: fixed;
+        }
+        
+        /* Liquid tech background elements */
+        .liquid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .liquid-shape {
+            position: absolute;
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            opacity: 0.2;
+            animation: morph 15s linear infinite;
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: -50px;
+            left: -50px;
+        }
+        
+        .shape-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -100px;
+            right: -100px;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            animation-delay: 5s;
+        }
+        
+        .shape-3 {
+            width: 200px;
+            height: 200px;
+            top: 40%;
+            left: 60%;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            animation-delay: 10s;
+        }
+        
+        @keyframes morph {
+            0%, 100% {
+                border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%;
+                transform: rotate(0deg);
+            }
+            33% {
+                border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
+                transform: rotate(120deg);
+            }
+            66% {
+                border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+                transform: rotate(240deg);
+            }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: var(--blur-intensity);
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo-icon {
+            font-size: 28px;
+            color: var(--accent);
+        }
+        
+        .made-in-india {
+            background: linear-gradient(to right, #ff9933, #ffffff, #138808);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            margin-left: 10px;
+            font-size: 0.9rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--accent), var(--primary));
+            transition: width 0.3s;
+        }
+        
+        nav a:hover:after, nav a.active:after {
+            width: 100%;
+        }
+        
+        nav a:hover, nav a.active {
+            color: var(--accent);
+        }
+        
+        /* Page Title */
+        .page-title {
+            background: linear-gradient(135deg, #4a6580, #2c3e50);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .page-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Content Section */
+        .content-section {
+            padding: 40px 0;
+        }
+        
+        .content-card {
+            background: var(--card-bg);
+            backdrop-filter: var(--blur-intensity);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .content-card h3 {
+            color: var(--accent);
+            margin: 25px 0 15px;
+            font-size: 1.5rem;
+        }
+        
+        .content-card p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        
+        .content-card ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .content-card li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(142, 45, 226, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .cta-button:hover:before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(142, 45, 226, 0.4);
+        }
+        
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: var(--blur-intensity);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 30px;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 3px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+        }
+        
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(142, 45, 226, 0.3);
+        }
+        
+        /* Google Sheets Preview */
+        .sheet-preview {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .sheet-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            margin: 40px auto;
+            max-width: 800px;
+            position: relative;
+        }
+        
+        .sheet-toolbar {
+            background: #f8f9fa;
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+        }
+        
+        .toolbar-button {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5f6368;
+            font-size: 16px;
+        }
+        
+        .sheet-grid {
+            display: grid;
+            grid-template-columns: 50px repeat(5, 1fr);
+            background: white;
+            color: #1a1a2e;
+        }
+        
+        .sheet-cell {
+            padding: 8px 10px;
+            border-right: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: left;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .sheet-header {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+        
+        .sheet-row-number {
+            background: #f8f9fa;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        /* Documentation Styles */
+        .docs-container {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .docs-sidebar {
+            flex: 1;
+            max-width: 250px;
+            position: sticky;
+            top: 100px;
+            align-self: flex-start;
+        }
+        
+        .docs-content {
+            flex: 3;
+        }
+        
+        .docs-nav {
+            background: var(--card-bg);
+            backdrop-filter: var(--blur-intensity);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .docs-nav h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .docs-nav ul {
+            list-style: none;
+        }
+        
+        .docs-nav li {
+            margin-bottom: 10px;
+        }
+        
+        .docs-nav a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+            padding: 8px 10px;
+            border-radius: 5px;
+        }
+        
+        .docs-nav a:hover {
+            color: var(--accent);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: var(--blur-intensity);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        .last-updated {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero-content h2 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .step {
+                max-width: 100%;
+            }
+            
+            .docs-container {
+                flex-direction: column;
+            }
+            
+            .docs-sidebar {
+                max-width: 100%;
+                position: relative;
+                top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Liquid background elements -->
+    <div class="liquid-bg">
+        <div class="liquid-shape shape-1"></div>
+        <div class="liquid-shape shape-2"></div>
+        <div class="liquid-shape shape-3"></div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-table logo-icon"></i>
+                    <h1>Catalog Automation</h1>
+                    <span class="made-in-india">Made in India</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html">Terms of Service</a></li>
+                        <li><a href="catalog-automation-docs.html" class="active">Documentation</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="page-title">
+        <div class="container">
+            <h2>Catalog Automation Documentation</h2>
+            <p>Complete guide to using our Google Sheets add-on for catalog automation</p>
+        </div>
+    </section>
+
+    <!-- Documentation Content -->
+    <section class="content-section">
+        <div class="container">
+            <div class="docs-container">
+                <div class="docs-sidebar">
+                    <div class="docs-nav">
+                        <h3>Documentation</h3>
+                        <ul>
+                            <li><a href="#getting-started">Getting Started</a></li>
+                            <li><a href="#creating-containers">Creating Containers</a></li>
+                            <li><a href="#applying-rules">Applying Rules</a></li>
+                            <li><a href="#firing-automation">Firing Automation</a></li>
+                            <li><a href="#best-practices">Best Practices</a></li>
+                            <li><a href="#troubleshooting">Troubleshooting</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="docs-content">
+                    <div class="content-card" id="getting-started">
+                        <h3>Getting Started</h3>
+                        <p>Catalog Automation is a powerful Google Sheets add-on designed for Indian and global e-commerce brands. It helps you automate your catalog management process with container-based rules.</p>
+                        
+                        <h4>Installation</h4>
+                        <ol>
+                            <li>Open your Google Sheets catalog</li>
+                            <li>Go to Extensions > Add-ons > Get add-ons</li>
+                            <li>Search for "Catalog Automation"</li>
+                            <li>Click Install and follow the authorization steps</li>
+                        </ol>
+                        
+                        <h4>Initial Setup</h4>
+                        <p>After installation, you'll find the "Catalog Automation" menu in your Google Sheets toolbar. Click on it and select "Create New Automation" to begin.</p>
+                    </div>
+                    
+                    <div class="content-card" id="creating-containers">
+                        <h3>Creating Containers</h3>
+                        <p>Containers are the core concept of our automation system. They allow you to group headers and apply specific rules to them.</p>
+                        
+                        <h4>Container Types</h4>
+                        <ul>
+                            <li><strong>SKU Level Data:</strong> Product identifiers, prices, inventory</li>
+                            <li><strong>Design Level Data:</strong> Colors, sizes, materials</li>
+                            <li><strong>Sheet Level Data:</strong> Metadata, categorization, tags</li>
+                        </ul>
+                        
+                        <h4>Creating a Container</h4>
+                        <ol>
+                            <li>Click on "Catalog Automation" in the menu</li>
+                            <li>Select "Create New Container"</li>
+                            <li>Name your container (e.g., "Product Details")</li>
+                            <li>Drag and drop headers from your sheet into the container</li>
+                            <li>Save the container</li>
+                        </ol>
+                        
+                        <div class="sheet-container">
+                            <div class="sheet-toolbar">
+                                <div class="toolbar-button"><i class="fas fa-bold"></i></div>
+                                <div class="toolbar-button"><i class="fas fa-italic"></i></div>
+                                <div class="toolbar-button"><i class="fas fa-underline"></i></div>
+                                <div class="toolbar-button"><i class="fas fa-align-left"></i></div>
+                                <div class="toolbar-button"><i class="fas fa-align-center"></i></div>
+                                <div class="toolbar-button"><i class="fas fa-align-right"></i></div>
+                            </div>
+                            
+                            <div class="sheet-grid">
+                                <!-- Row 1: Headers -->
+                                <div class="sheet-cell sheet-row-number">1</div>
+                                <div class="sheet-cell sheet-header">Product ID</div>
+                                <div class="sheet-cell sheet-header">Product Name</div>
+                                <div class="sheet-cell sheet-header">Category</div>
+                                <div class="sheet-cell sheet-header">Price</div>
+                                <div class="sheet-cell sheet-header">Status</div>
+                                
+                                <!-- Row 2 -->
+                                <div class="sheet-cell sheet-row-number">2</div>
+                                <div class="sheet-cell">SKU-10001</div>
+                                <div class="sheet-cell">Men's T-Shirt</div>
+                                <div class="sheet-cell">Clothing</div>
+                                <div class="sheet-cell">₹599</div>
+                                <div class="sheet-cell">In Stock</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card" id="applying-rules">
+                        <h3>Applying Rules</h3>
+                        <p>Rules determine how data is processed within each container. You can create custom rules based on your specific needs.</p>
+                        
+                        <h4>Rule Types</h4>
+                        <ul>
+                            <li><strong>Formatting Rules:</strong> Change how data appears</li>
+                            <li><strong>Validation Rules:</strong> Ensure data meets specific criteria</li>
+                            <li><strong>Transformation Rules:</strong> Modify data based on conditions</li>
+                            <li><strong>Calculation Rules:</strong> Perform calculations on data</li>
+                        </ul>
+                        
+                        <h4>Creating a Rule</h4>
+                        <ol>
+                            <li>Select the container you want to add a rule to</li>
+                            <li>Click "Add Rule"</li>
+                            <li>Choose the rule type</li>
+                            <li>Configure the rule parameters</li>
+                            <li>Test the rule with sample data</li>
+                            <li>Save the rule</li>
+                        </ol>
+                        
+                        <h4>Example Rule</h4>
+                        <p>If you have a "Price" container, you might create a rule that:</p>
+                        <ul>
+                            <li>Formats all prices with ₹ symbol</li>
+                            <li>Highlights prices below cost in red</li>
+                            <li>Rounds prices to nearest 10</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-card" id="firing-automation">
+                        <h3>Firing Automation</h3>
+                        <p>Once you've set up your containers and rules, you can execute the automation process with a single click.</p>
+                        
+                        <h4>How to Fire Automation</h4>
+                        <ol>
+                            <li>Ensure all containers and rules are properly configured</li>
+                            <li>Click on "Catalog Automation" in the menu</li>
+                            <li>Select "Fire Automation"</li>
+                            <li>Review the preview of changes</li>
+                            <li>Confirm to apply the changes</li>
+                        </ol>
+                        
+                        <h4>What Happens When You Fire</h4>
+                        <ul>
+                            <li>Data is processed according to your container rules</li>
+                            <li>Changes are applied to your Google Sheet</li>
+                            <li>A summary report is generated</li>
+                            <li>Any errors are flagged for review</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-card" id="best-practices">
+                        <h3>Best Practices</h3>
+                        <p>Follow these best practices to get the most out of Catalog Automation:</p>
+                        
+                        <h4>Container Organization</h4>
+                        <ul>
+                            <li>Group related headers together</li>
+                            <li>Create logical container hierarchies</li>
+                            <li>Use descriptive container names</li>
+                            <li>Limit containers to a manageable number</li>
+                        </ul>
+                        
+                        <h4>Rule Design</h4>
+                        <ul>
+                            <li>Start with simple rules and gradually add complexity</li>
+                            <li>Test rules on sample data before applying to entire catalog</li>
+                            <li>Document your rules for future reference</li>
+                            <li>Review and update rules regularly</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-card" id="troubleshooting">
+                        <h3>Troubleshooting</h3>
+                        <p>If you encounter issues with Catalog Automation, try these troubleshooting steps:</p>
+                        
+                        <h4>Common Issues</h4>
+                        <ul>
+                            <li><strong>Rules not applying:</strong> Check that containers are properly configured</li>
+                            <li><strong>Errors in data:</strong> Review rule logic and test with sample data</li>
+                            <li><strong>Performance issues:</strong> Break large automations into smaller chunks</li>
+                            <li><strong>Authorization problems:</strong> Reinstall the add-on if needed</li>
+                        </ul>
+                        
+                        <h4>Getting Help</h4>
+                        <p>If you need further assistance, contact our support team at support@cloudfetch.tech with details about your issue and a sample of your data if possible.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Catalog Automation</div>
+                <p>by cloudfetch.tech</p>
+                
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms-of-service.html">Terms of Service</a>
+                    <a href="catalog-automation-docs.html">Documentation</a>
+                </div>
+                
+                <p class="copyright">© 2023 cloudfetch.tech. All rights reserved.</p>
+                <p class="last-updated">Last Updated: 01-09-2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('nav a');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Smooth scrolling for documentation navigation
+            document.querySelectorAll('.docs-nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
