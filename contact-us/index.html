@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C859XT9E25"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-C859XT9E25');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Catalog Automation by cloudfetch.tech</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #60a5fa; /* A softer, more neutral blue */
+            --secondary: #4f46e5; /* A deeper indigo/violet */
+            --accent: #0ea5e9; /* A bright, but clean blue for accents */
+            --light-text: #e2e8f0; /* Off-white for text */
+            --dark-bg: #0f172a; /* Dark charcoal for background */
+            --card-bg: rgba(255, 255, 255, 0.08); /* Transparent white for a different mixing effect */
+            --border-color: rgba(68, 88, 120, 0.4); /* Subtler border */
+            --glass-blur: blur(0px); /* Removed blur for a focused look */
+            --gradient-one: linear-gradient(135deg, var(--dark-bg), #1e293b); /* Softer gradient */
+            --gradient-two: linear-gradient(45deg, var(--accent), var(--secondary)); /* Cleaner gradient */
+            --shadow-light: 0 4px 10px rgba(0, 0, 0, 0.2); /* Softer shadow */
+            --shadow-dark: 0 8px 20px rgba(0, 0, 0, 0.4); /* Less intense shadow */
+            --hover-glow: 0 0 15px rgba(14, 165, 233, 0.4); /* Subtler hover glow */
+        }
+
+        body {
+            background: var(--gradient-one);
+            color: var(--light-text);
+            font-family: 'Inter', sans-serif; /* Modern, clean font */
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-attachment: fixed;
+            text-rendering: optimizeLegibility;
+        }
+
+        #liquidCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Behind content, in front of .liquid-bg */
+            pointer-events: all; /* Allows click interactions */
+        }
+
+        /* General Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Liquid tech background elements - keep subtle */
+        .liquid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .liquid-shape {
+            position: absolute;
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            background: var(--gradient-two);
+            opacity: 0.5; /* Increased opacity for even more brightness */
+            animation: morph 15s linear infinite alternate, float 10s ease-in-out infinite;
+            filter: blur(0px); /* Removed blur for sharper liquid shapes */
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: 15%;
+            left: -8%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -15%;
+            right: -8%;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            animation-delay: 5s;
+        }
+
+        .shape-3 {
+            width: 200px;
+            height: 200px;
+            top: 55%;
+            left: 35%;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            animation-delay: 10s;
+        }
+
+        @keyframes morph {
+            0%, 100% {
+                border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%;
+                transform: rotate(0deg) scale(1);
+            }
+            33% {
+                border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
+                transform: rotate(120deg) scale(1.05);
+            }
+            66% {
+                border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+                transform: rotate(240deg) scale(0.95);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px);
+            }
+            50% {
+                transform: translateY(-15px) translateX(15px);
+            }
+        }
+
+        /* Header & Navigation */
+        header {
+            background: rgba(255, 255, 255, 0.08); /* Transparent white for a different mixing effect */
+            backdrop-filter: var(--glass-blur);
+            padding: 15px 0;
+            box-shadow: var(--shadow-light);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            background: var(--gradient-two);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            color: var(--accent);
+            text-shadow: none;
+        }
+
+        .made-in-india {
+            font-size: 0.9rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease; /* Add transition for hover effect */
+        }
+
+        .made-in-india:hover {
+            background: rgba(255, 255, 255, 0.08); /* Darker background on hover */
+            border-color: var(--accent); /* Highlight border on hover */
+            cursor: default;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease-in-out;
+            border: 1px solid transparent;
+            color: var(--light-text);
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        nav a:hover::before, nav a.active::before {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent);
+            transform: none;
+            box-shadow: none;
+            border-color: transparent;
+        }
+
+        /* Page Title */
+        .page-title {
+            background: rgba(255, 255, 255, 0.08); /* Transparent white for a different mixing effect */
+            backdrop-filter: var(--glass-blur);
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow-dark);
+        }
+
+        .page-title h2 {
+            font-size: 3.2rem;
+            margin-bottom: 12px;
+            background: var(--gradient-two);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+            letter-spacing: 0.5px;
+        }
+
+        .page-title p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-blur);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--border-color);
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px) scale(1.005);
+            box-shadow: var(--hover-glow);
+            border-color: var(--accent);
+        }
+
+        .contact-card h3 {
+            color: var(--light-text);
+            margin-bottom: 25px;
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center; /* Center align the heading */
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--light-text);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: rgba(30, 41, 59, 0.9);
+            color: var(--light-text);
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-button {
+            display: inline-block;
+            padding: 14px 30px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            box-shadow: var(--shadow-light);
+            background: var(--gradient-two);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            color: var(--dark-bg);
+            font-weight: 600;
+            transition: all 0.3s ease; /* Ensure smooth transition on all properties */
+            border: none;
+            cursor: pointer;
+            width: auto;
+            margin-top: 20px;
+        }
+
+        .submit-button:hover {
+            /* No hover effects */
+        }
+
+        /* Contact Info */
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .info-item {
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-blur);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--border-color);
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            text-align: left;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .info-item:hover {
+            transform: translateY(-5px) scale(1.005);
+            box-shadow: var(--hover-glow);
+            border-color: var(--accent);
+        }
+
+        .info-item i {
+            font-size: 35px;
+            color: var(--accent);
+            margin-bottom: 15px;
+            text-align: center;
+            display: block; /* Make icon a block to center */
+        }
+
+        .info-item h4 {
+            font-size: 1.4rem;
+            color: var(--light-text);
+            margin-bottom: 10px;
+            text-align: center; /* Center align sub-headings */
+        }
+
+        .info-item p,
+        .info-item a {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 5px;
+            text-align: center; /* Center align paragraphs and links */
+        }
+
+        .info-item a:hover {
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            background: rgba(255, 255, 255, 0.08); /* Transparent white for a different mixing effect */
+            backdrop-filter: var(--glass-blur);
+            text-align: center;
+            margin-top: 50px;
+            border-top: 1px solid var(--border-color);
+            box-shadow: var(--shadow-dark);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-logo {
+            font-size: 2.2rem;
+            background: var(--gradient-two);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            text-shadow: none;
+        }
+
+        .copyright, .last-updated {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .page-title h2 {
+                font-size: 2.5rem;
+            }
+            .contact-card {
+                padding: 30px;
+            }
+            .contact-card h3 {
+                font-size: 1.8rem;
+            }
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+            .info-item {
+                max-width: 90%;
+            }
+        }
+
+        /* Animations for elements on scroll */
+        .animate {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .animate.is-intersecting {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Liquid background elements -->
+    <div class="liquid-bg">
+        <div class="liquid-shape shape-1"></div>
+        <div class="liquid-shape shape-2"></div>
+        <div class="liquid-shape shape-3"></div>
+    </div>
+
+    <!-- Interactive liquid canvas -->
+    <canvas id="liquidCanvas"></canvas>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-table logo-icon"></i>
+                    <h1>Catalog Automation</h1>
+                    <span class="made-in-india">Made in India</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="privacy-policy">Privacy Policy</a></li>
+                        <li><a href="terms-of-service">Terms of Service</a></li>
+                        <li><a href="catalog-automation-docs">Documentation</a></li>
+                        <li><a href="contact-us">Contact Us</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="page-title animate">
+        <div class="container">
+            <h2>Get in Touch</h2>
+            <p>We'd love to hear from you!</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-card animate">
+                <h3>Send us a Message</h3>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Send Message <i class="fas fa-paper-plane"></i></button>
+                </form>
+                <p id="formStatus" style="margin-top: 20px; color: var(--accent);"></p>
+            </div>
+
+            <div class="contact-info">
+                <div class="info-item animate">
+                    <i class="fas fa-envelope"></i>
+                    <h4>Email Us</h4>
+                    <p>General Inquiries: <a href="mailto:info@cloudfetch.tech">info@cloudfetch.tech</a></p>
+                    <p>Support: <a href="mailto:support@cloudfetch.tech">support@cloudfetch.tech</a></p>
+                </div>
+                <div class="info-item animate">
+                    <i class="fas fa-phone-alt"></i>
+                    <h4>Call Us</h4>
+                    <p>+91 98765 43210</p>
+                </div>
+                <div class="info-item animate">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h4>Visit Us</h4>
+                    <p>CloudFetch Technologies</p>
+                    <p>123 Tech Park, Bangalore</p>
+                    <p>Karnataka 560001, India</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Catalog Automation</div>
+                <p>by cloudfetch.tech</p>
+                
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="privacy-policy">Privacy Policy</a>
+                    <a href="terms-of-service">Terms of Service</a>
+                    <a href="catalog-automation-docs">Documentation</a>
+                    <a href="contact-us">Contact Us</a>
+                </div>
+                
+                <p class="copyright">© 2025 cloudfetch.tech. All rights reserved.</p>
+                <p class="last-updated">Last Updated: 09-2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation active link highlighting
+            const navLinks = document.querySelectorAll('nav a');
+            const currentPath = window.location.pathname.split('/').filter(Boolean).pop();
+            const isRoot = window.location.pathname === '/' || window.location.pathname === '/index.html';
+
+            navLinks.forEach(link => {
+                link.classList.remove('active'); // Clear active class from all links
+                const linkHref = link.getAttribute('href').replace('.html', '').replace('/', '');
+                if (isRoot && linkHref === '') { // Special handling for root/home
+                    link.classList.add('active');
+                } else if (currentPath === linkHref) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Contact Form Submission (Basic client-side example)
+            const contactForm = document.getElementById('contactForm');
+            const formStatus = document.getElementById('formStatus');
+
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                formStatus.textContent = 'Sending message...';
+                formStatus.style.color = 'var(--accent)';
+
+                // In a real application, you would send this data to a server using fetch or XMLHttpRequest
+                // For demonstration, we'll simulate a server response
+                setTimeout(() => {
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const subject = document.getElementById('subject').value;
+                    const message = document.getElementById('message').value;
+
+                    console.log('Form Submitted:', { name, email, subject, message });
+
+                    // Simulate success or failure
+                    if (Math.random() > 0.1) { // 90% chance of success
+                        formStatus.textContent = 'Message sent successfully! We will get back to you shortly.';
+                        formStatus.style.color = 'var(--accent)';
+                        contactForm.reset();
+                    } else {
+                        formStatus.textContent = 'Failed to send message. Please try again later.';
+                        formStatus.style.color = 'red';
+                    }
+                }, 2000); // Simulate network delay
+            });
+
+            // Animate elements on scroll
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-intersecting');
+                    } else {
+                        entry.target.classList.remove('is-intersecting');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.page-title, .contact-card, .info-item').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+
+    <script>
+        const canvas = document.getElementById('liquidCanvas');
+        const ctx = canvas.getContext('2d');
+        let ripples = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function createRipple(x, y) {
+            ripples.push({
+                x: x,
+                y: y,
+                radius: 0,
+                alpha: 1,
+                color: 'rgba(14, 165, 233, 1)' // var(--accent) with full opacity
+            });
+        }
+
+        function animateRipples() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < ripples.length; i++) {
+                const ripple = ripples[i];
+
+                // Expand and fade
+                ripple.radius += 1.5; // Speed of expansion
+                ripple.alpha -= 0.015; // Speed of fading
+
+                // Remove old ripples
+                if (ripple.alpha <= 0) {
+                    ripples.splice(i, 1);
+                    i--;
+                    continue;
+                }
+
+                ctx.beginPath();
+                ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2, false);
+                ctx.strokeStyle = ripple.color.replace('1)', ripple.alpha.toFixed(3) + ')');
+                ctx.lineWidth = 2; // Thickness of the ripple
+                ctx.stroke();
+            }
+
+            requestAnimationFrame(animateRipples);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        canvas.addEventListener('click', (e) => {
+            createRipple(e.clientX, e.clientY);
+        });
+
+        // Initial setup
+        resizeCanvas();
+        animateRipples();
+    </script>
+</body>
+</html>
