@@ -753,5 +753,33 @@
             };
         }
     </script>
+
+    <!-- Trademark appender: adds ™ after Google product names -->
+    <script>
+        (function() {
+            const TERMS = [
+                { from: /Google Workspace(?!™)/g, to: 'Google Workspace™' },
+                { from: /Google Sheets(?!™)/g, to: 'Google Sheets™' },
+                { from: /Google Drive(?!™)/g, to: 'Google Drive™' },
+                { from: /Google Docs(?!™)/g, to: 'Google Docs™' },
+                { from: /Google(?!(?: Sheets| Workspace| Drive| Docs|™))/g, to: 'Google™' }
+            ];
+            TERMS.sort((a, b) => b.from.source.length - a.from.source.length); // Sort by length, longest first
+            const isSkippable = (node) => {
+                return node.parentNode && ['SCRIPT','STYLE','NOSCRIPT','CODE','PRE'].includes(node.parentNode.nodeName);
+            };
+            const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+            const textNodes = [];
+            while (walker.nextNode()) {
+                const n = walker.currentNode;
+                if (!isSkippable(n) && n.nodeValue && n.nodeValue.trim().length) textNodes.push(n);
+            }
+            textNodes.forEach(n => {
+                let t = n.nodeValue;
+                TERMS.forEach(rule => { t = t.replace(rule.from, rule.to); });
+                n.nodeValue = t;
+            });
+        })();
+    </script>
 </body>
 </html>

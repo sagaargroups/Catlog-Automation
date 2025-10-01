@@ -914,171 +914,210 @@
                     <div class="docs-nav">
                         <h3>Documentation</h3>
                         <ul>
-                            <li><a href="#getting-started">Getting Started</a></li>
-                            <li><a href="#creating-containers">Creating Containers</a></li>
-                            <li><a href="#applying-rules">Applying Rules</a></li>
-                            <li><a href="#firing-automation">Firing Automation</a></li>
-                            <li><a href="#best-practices">Best Practices</a></li>
-                            <li><a href="#troubleshooting">Troubleshooting</a></li>
+                            <li><a href="#big-picture">Big Picture</a></li>
+                            <li><a href="#robots-brain">Robot’s Brain (Code.js)</a></li>
+                            <li><a href="#robots-playroom">Robot’s Playroom (Sidebar.html)</a></li>
+                            <li><a href="#rules">Rules Against Container</a></li>
+                            <li><a href="#actions">Action Buttons</a></li>
+                            <li><a href="#how-it-works">How It All Works Together</a></li>
                         </ul>
                     </div>
                 </div>
                 
                 <div class="docs-content">
-                    <div class="content-card animate" id="getting-started" data-section="getting-started">
-                        <h3>Getting Started</h3>
-                        <p>Catalog Automation is a powerful Google Sheets add-on designed for Indian and global e-commerce brands. It helps you automate your catalog management process with container-based rules.</p>
-                        
-                        <h4>Installation</h4>
+                    <div class="content-card animate" id="big-picture">
+                        <h3>Catalog Automation App: A Fun Helper for Your Spreadsheets!</h3>
+                        <p>Do you ever play with toy blocks and wish you could build many similar things really fast without repeating the same steps? Or you have a list of favorite candies and want to make many lists with slightly different candies in each?</p>
+                        <p>That’s what this Catalog Automation App does with Google Sheets™. It acts like a super‑smart robot helper that fills out your lists quickly and consistently.</p>
+                        <h4>What Our Robot Helper Does (The Big Picture)</h4>
+                        <ul>
+                            <li>Imagine you have headers like “Color”, “Size”, “Type”. You want rows such as:
+                                <ul>
+                                    <li>Red, Small, Car</li>
+                                    <li>Blue, Medium, Ball</li>
+                                    <li>Green, Big, Doll</li>
+                                </ul>
+                            </li>
+                            <li>Tell the robot what to write; it writes it for you.</li>
+                            <li>It can remember your setups so you can reuse them.</li>
+                            <li>It can write many rows at once using smart rules.</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-card animate" id="robots-brain">
+                        <h3>The Robot’s Brain (Code.js) — What it Thinks About</h3>
+                        <h4><code>getAvailableRanges()</code>: Finding Treasure Spots</h4>
+                        <ul>
+                            <li><strong>What it does:</strong> Finds named ranges in your sheet to discover useful lists.</li>
+                            <li><strong>Why it’s important:</strong> Helps the robot locate options to pick from.</li>
+                        </ul>
+
+                        <h4><code>getValuesFromActiveRange(headerName)</code>: Reading What You Point To</h4>
+                        <ul>
+                            <li><strong>What it does:</strong> Reads values from the current selection (active range) you highlight.</li>
+                            <li><strong>Why it’s important:</strong> Lets you add fresh options to dropdowns from your sheet.</li>
+                        </ul>
+
+                        <h4><code>updateAutomationOptions(updatedAutomationData)</code>: Changing the Robot’s Memories</h4>
+                        <ul>
+                            <li><strong>What it does:</strong> Updates a saved automation in the robot’s memory sheet.</li>
+                            <li><strong>Why it’s important:</strong> Improve saved helpers without starting over.</li>
+                        </ul>
+
+                        <h4><code>DB_SHEET_ID</code> and <code>DB_SHEET_NAME</code>: The Robot’s Secret Diary</h4>
+                        <ul>
+                            <li><strong>What it does:</strong> Identifies the separate memory sheet (ID and name).</li>
+                            <li><strong>Why it’s important:</strong> Stores your saved automations safely.</li>
+                        </ul>
+
+                        <h4><code>_addNumberingToOptions(options)</code>: Giving Numbers to Your Choices</h4>
+                        <ul>
+                            <li><strong>What it does:</strong> Turns <code>["Apple", "Banana"]</code> into <code>["1. Apple", "2. Banana", "0. BLANK"]</code>.</li>
+                            <li><strong>Why it’s important:</strong> Makes choices tidy and easy to reference.</li>
+                        </ul>
+
+                        <h4><code>_removeNumberingFromOption(numberedOption)</code>: Taking Numbers Off</h4>
+                        <ul>
+                            <li><strong>What it does:</strong> Converts “1. Apple” back to “Apple”.</li>
+                            <li><strong>Why it’s important:</strong> Writes clean values into the sheet.</li>
+                        </ul>
+
+                        <h4><code>onOpen()</code>: Saying “Hello!” When You Open the Book</h4>
+                        <ul>
+                            <li><strong>What it does:</strong> Adds the “Catalog Automation” menu.</li>
+                            <li><strong>Why it’s important:</strong> One‑click access to the robot helper.</li>
+                        </ul>
+
+                        <h4><code>_getColumnLetterFromIndex(index)</code>: Giving Names to Columns</h4>
+                        <ul>
+                            <li><strong>What it does:</strong> Converts zero‑based indices into A, B, C…</li>
+                            <li><strong>Why it’s important:</strong> Human‑friendly column labels.</li>
+                        </ul>
+
+                        <h4><code>openSidebar()</code>: Opening the Robot’s Playroom</h4>
+                        <ul>
+                            <li><strong>What it does:</strong> Opens the app’s sidebar UI in Google Sheets™.</li>
+                            <li><strong>Why it’s important:</strong> Where you give the robot instructions.</li>
+                        </ul>
+
+                        <h4><code>getHeadersAndOptions()</code>: Learning About Your List</h4>
+                        <ul>
+                            <li><strong>What it does:</strong> Reads header row and existing validation options.</li>
+                            <li><strong>Why it’s important:</strong> Understands your sheet’s structure and choices.</li>
+                        </ul>
+
+                        <h4><code>writeRow(selectedValues)</code>: Writing One Line Quickly</h4>
+                        <ul>
+                            <li><strong>What it does:</strong> Appends a single row with your chosen values.</li>
+                            <li><strong>Why it’s important:</strong> Fast, one‑off additions.</li>
+                        </ul>
+
+                        <h4><code>writeMultipleRows(automationData)</code>: Writing Many Lines with Smart Rules</h4>
+                        <ul>
+                            <li><strong>What it does:</strong> Writes multiple rows following rules (repeat, advance options, fix values).</li>
+                            <li><strong>Why it’s important:</strong> Huge time saver for similar rows.</li>
+                        </ul>
+
+                        <h4><code>saveAutomation(name, automationData, userEmail)</code>: Remembering Your Best Ideas</h4>
+                        <ul>
+                            <li><strong>What it does:</strong> Saves named automations with owner email.</li>
+                            <li><strong>Why it’s important:</strong> Reuse and share safely.</li>
+                        </ul>
+
+                        <h4><code>listAutomations(userEmail)</code>: Showing Your Saved Ideas</h4>
+                        <ul>
+                            <li><strong>What it does:</strong> Lists automations saved by the active user.</li>
+                            <li><strong>Why it’s important:</strong> Quickly load your favorites.</li>
+                        </ul>
+
+                        <h4><code>addNumberingToOptionsServer(options)</code>: Robot Adding Numbers for the Playroom</h4>
+                        <ul>
+                            <li><strong>What it does:</strong> Prepares numbered options for the sidebar UI.</li>
+                            <li><strong>Why it’s important:</strong> Consistent, clear display in the sidebar.</li>
+                        </ul>
+
+                        <h4><code>getActiveUserEmail()</code>: Who Are You?</h4>
+                        <ul>
+                            <li><strong>What it does:</strong> Gets the active user’s email via Google™ account context.</li>
+                            <li><strong>Why it’s important:</strong> Keeps automations user‑scoped.</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-card animate" id="robots-playroom">
+                        <h3>The Robot’s Playroom (Sidebar.html) — What You See and Do</h3>
+                        <h4><code>&lt;h2&gt;Catalog Automation&lt;/h2&gt;</code></h4>
+                        <ul>
+                            <li><strong>What it is:</strong> The app title in the sidebar.</li>
+                            <li><strong>Why it’s important:</strong> Clear entry point.</li>
+                        </ul>
+
+                        <h4>Saved Automations</h4>
+                        <ul>
+                            <li><strong>What it is:</strong> List of your saved setups.</li>
+                            <li><strong>Why it’s important:</strong> Load and reuse fast.</li>
+                        </ul>
+
+                        <h4>Automation Fields</h4>
+                        <ul>
+                            <li><strong>What it is:</strong> Drag‑and‑drop headers into containers, pick options, build logic.</li>
+                            <li><strong>Why it’s important:</strong> Create smart, organized inputs.</li>
+                            <li><strong><code>+ Create New Automation</code>:</strong> Start fresh.</li>
+                            <li><strong><code>+ Add Container</code>:</strong> Group related fields (e.g., “Toy Details”).</li>
+                        </ul>
+
+                        <h4>Fields & Containers</h4>
+                        <ul>
+                            <li><strong>What they are:</strong> Each field maps to a header; containers hold fields. Dropdowns let you pick values.</li>
+                            <li><strong>Why they’re important:</strong> Visual organization, easy option management.</li>
+                        </ul>
+
+                        <h4><code>+</code> Button Next to Dropdowns</h4>
+                        <ul>
+                            <li><strong>What it is:</strong> When clicked, imports values from your active range selection.</li>
+                            <li><strong>Why it’s important:</strong> Quickly enrich dropdown options from the sheet.</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-card animate" id="rules">
+                        <h3>Rules Against Container</h3>
+                        <h4>Rule 1. Multiply in number</h4>
+                        <ul>
+                            <li><strong>What it is:</strong> Repeat a container’s values N times.</li>
+                            <li><strong>Why it’s important:</strong> Batch‑create identical segments.</li>
+                        </ul>
+
+                        <h4>Rule 2. Which option to start from</h4>
+                        <ul>
+                            <li><strong>What it is:</strong> Start at a specific numbered option, then advance per row.</li>
+                            <li><strong>Why it’s important:</strong> Vary choices across rows (e.g., Banana, Cherry, …).</li>
+                        </ul>
+
+                        <h4>Rule 3. All Time Fix Container</h4>
+                        <ul>
+                            <li><strong>What it is:</strong> Lock a container’s picks regardless of other rules.</li>
+                            <li><strong>Why it’s important:</strong> Keep critical fields constant.</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-card animate" id="actions">
+                        <h3>Action Buttons</h3>
+                        <ul>
+                            <li><strong>Fire (Write Data):</strong> Execute writing to the sheet based on rules.</li>
+                            <li><strong>Update Automation:</strong> Save edits to a loaded automation.</li>
+                            <li><strong>Save as Automation:</strong> Name and save a new automation.</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-card animate" id="how-it-works">
+                        <h3>How It All Works Together (Like a Team!)</h3>
                         <ol>
-                            <li>Open your Google Sheets catalog</li>
-                            <li>Go to Extensions > Add-ons > Get add-ons</li>
-                            <li>Search for "Catalog Automation"</li>
-                            <li>Click Install and follow the authorization steps</li>
+                            <li>You open your Google Sheets™ file (<code>onOpen()</code> adds the menu).</li>
+                            <li>You click “Catalog Automation” (<code>openSidebar()</code> opens the sidebar).</li>
+                            <li>The robot inspects your headers and options (<code>getHeadersAndOptions()</code>).</li>
+                            <li>You build an automation: drag fields, pick options, add rules.</li>
+                            <li>You click “Fire (Write Data)” or “Save as Automation”.</li>
+                            <li>The robot writes new rows (<code>sheet.appendRow()</code>) automatically.</li>
                         </ol>
-                        
-                        <h4>Initial Setup</h4>
-                        <p>After installation, you'll find the "Catalog Automation" menu in your Google Sheets toolbar. Click on it and select "Create New Automation" to begin.</p>
-                    </div>
-                    
-                    <div class="content-card animate" id="creating-containers" data-section="creating-containers">
-                        <h3>Creating Containers</h3>
-                        <p>Containers are the core concept of our automation system. They allow you to group headers and apply specific rules to them.</p>
-                        
-                        <h4>Container Types</h4>
-                        <ul>
-                            <li><strong>SKU Level Data:</strong> Product identifiers, prices, inventory</li>
-                            <li><strong>Design Level Data:</strong> Colors, sizes, materials</li>
-                            <li><strong>Sheet Level Data:</strong> Metadata, categorization, tags</li>
-                        </ul>
-                        
-                        <h4>Creating a Container</h4>
-                        <ol>
-                            <li>Click on "Catalog Automation" in the menu</li>
-                            <li>Select "Create New Container"</li>
-                            <li>Name your container (e.g., "Product Details")</li>
-                            <li>Drag and drop headers from your sheet into the container</li>
-                            <li>Save the container</li>
-                        </ol>
-                        
-                        <div class="sheet-container">
-                            <div class="sheet-toolbar">
-                                <div class="toolbar-button"><i class="fas fa-bold"></i></div>
-                                <div class="toolbar-button"><i class="fas fa-italic"></i></div>
-                                <div class="toolbar-button"><i class="fas fa-underline"></i></div>
-                                <div class="toolbar-button"><i class="fas fa-align-left"></i></div>
-                                <div class="toolbar-button"><i class="fas fa-align-center"></i></div>
-                                <div class="toolbar-button"><i class="fas fa-align-right"></i></div>
-                            </div>
-                            
-                            <div class="sheet-grid">
-                                <!-- Row 1: Headers -->
-                                <div class="sheet-cell sheet-row-number">1</div>
-                                <div class="sheet-cell sheet-header">Product ID</div>
-                                <div class="sheet-cell sheet-header">Product Name</div>
-                                <div class="sheet-cell sheet-header">Category</div>
-                                <div class="sheet-cell sheet-header">Price</div>
-                                <div class="sheet-cell sheet-header">Status</div>
-                                
-                                <!-- Row 2 -->
-                                <div class="sheet-cell sheet-row-number">2</div>
-                                <div class="sheet-cell">SKU-10001</div>
-                                <div class="sheet-cell">Men's T-Shirt</div>
-                                <div class="sheet-cell">Clothing</div>
-                                <div class="sheet-cell">₹599</div>
-                                <div class="sheet-cell">In Stock</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="content-card animate" id="applying-rules" data-section="applying-rules">
-                        <h3>Applying Rules</h3>
-                        <p>Rules determine how data is processed within each container. You can create custom rules based on your specific needs.</p>
-                        
-                        <h4>Rule Types</h4>
-                        <ul>
-                            <li><strong>Formatting Rules:</strong> Change how data appears</li>
-                            <li><strong>Validation Rules:</strong> Ensure data meets specific criteria</li>
-                            <li><strong>Transformation Rules:</strong> Modify data based on conditions</li>
-                            <li><strong>Calculation Rules:</strong> Perform calculations on data</li>
-                        </ul>
-                        
-                        <h4>Creating a Rule</h4>
-                        <ol>
-                            <li>Select the container you want to add a rule to</li>
-                            <li>Click "Add Rule"</li>
-                            <li>Choose the rule type</li>
-                            <li>Configure the rule parameters</li>
-                            <li>Test the rule with sample data</li>
-                            <li>Save the rule</li>
-                        </ol>
-                        
-                        <h4>Example Rule</h4>
-                        <p>If you have a "Price" container, you might create a rule that:</p>
-                        <ul>
-                            <li>Formats all prices with ₹ symbol</li>
-                            <li>Highlights prices below cost in red</li>
-                            <li>Rounds prices to nearest 10</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="content-card animate" id="firing-automation" data-section="firing-automation">
-                        <h3>Firing Automation</h3>
-                        <p>Once you've set up your containers and rules, you can execute the automation process with a single click.</p>
-                        
-                        <h4>How to Fire Automation</h4>
-                        <ol>
-                            <li>Ensure all containers and rules are properly configured</li>
-                            <li>Click on "Catalog Automation" in the menu</li>
-                            <li>Select "Fire Automation"</li>
-                            <li>Review the preview of changes</li>
-                            <li>Confirm to apply the changes</li>
-                        </ol>
-                        
-                        <h4>What Happens When You Fire</h4>
-                        <ul>
-                            <li>Data is processed according to your container rules</li>
-                            <li>Changes are applied to your Google Sheet</li>
-                            <li>A summary report is generated</li>
-                            <li>Any errors are flagged for review</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="content-card animate" id="best-practices" data-section="best-practices">
-                        <h3>Best Practices</h3>
-                        <p>Follow these best practices to get the most out of Catalog Automation:</p>
-                        
-                        <h4>Container Organization</h4>
-                        <ul>
-                            <li>Group related headers together</li>
-                            <li>Create logical container hierarchies</li>
-                            <li>Use descriptive container names</li>
-                            <li>Limit containers to a manageable number</li>
-                        </ul>
-                        
-                        <h4>Rule Design</h4>
-                        <ul>
-                            <li>Start with simple rules and gradually add complexity</li>
-                            <li>Test rules on sample data before applying to entire catalog</li>
-                            <li>Document your rules for future reference</li>
-                            <li>Review and update rules regularly</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="content-card animate" id="troubleshooting" data-section="troubleshooting">
-                        <h3>Troubleshooting</h3>
-                        <p>If you encounter issues with Catalog Automation, try these troubleshooting steps:</p>
-                        
-                        <h4>Common Issues</h4>
-                        <ul>
-                            <li><strong>Rules not applying:</strong> Check that containers are properly configured</li>
-                            <li><strong>Errors in data:</strong> Review rule logic and test with sample data</li>
-                            <li><strong>Performance issues:</strong> Break large automations into smaller chunks</li>
-                            <li><strong>Authorization problems:</strong> Reinstall the add-on if needed</li>
-                        </ul>
-                        
-                        <h4>Getting Help</h4>
-                        <p>If you need further assistance, contact our support team at support@cloudfetch.tech with details about your issue and a sample of your data if possible.</p>
                     </div>
                 </div>
             </div>
@@ -1230,6 +1269,33 @@
         // Initial setup
         resizeCanvas();
         animateRipples();
+    </script>
+
+    <!-- Trademark appender: adds ™ after Google product names -->
+    <script>
+        (function() {
+            const TERMS = [
+                { from: /Google Workspace(?!™)/g, to: 'Google Workspace™' },
+                { from: /Google Sheets(?!™)/g, to: 'Google Sheets™' },
+                { from: /Google Drive(?!™)/g, to: 'Google Drive™' },
+                { from: /Google Docs(?!™)/g, to: 'Google Docs™' },
+                { from: /Google(?!(?: Sheets| Workspace| Drive| Docs|™))/g, to: 'Google™' }
+            ];
+            const isSkippable = (node) => {
+                return node.parentNode && ['SCRIPT','STYLE','NOSCRIPT','CODE','PRE'].includes(node.parentNode.nodeName);
+            };
+            const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+            const textNodes = [];
+            while (walker.nextNode()) {
+                const n = walker.currentNode;
+                if (!isSkippable(n) && n.nodeValue && n.nodeValue.trim().length) textNodes.push(n);
+            }
+            textNodes.forEach(n => {
+                let t = n.nodeValue;
+                TERMS.forEach(rule => { t = t.replace(rule.from, rule.to); });
+                n.nodeValue = t;
+            });
+        })();
     </script>
 </body>
 </html>
