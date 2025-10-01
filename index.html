@@ -43,6 +43,17 @@
             --hover-glow: 0 0 10px rgba(14, 165, 233, 0.2); /* Even subtler hover glow */
         }
 
+        /* Light theme overrides (shadcn-like tokens) */
+        html[data-theme="light"] {
+            --dark-bg: #ffffff;
+            --card-bg: #ffffff;
+            --light-text: #0f172a;
+            --border-color: rgba(2, 6, 23, 0.12);
+            --gradient-one: linear-gradient(135deg, #f8fafc, #ffffff);
+            --shadow-light: 0 1px 2px rgba(2, 6, 23, 0.06);
+            --shadow-dark: 0 2px 8px rgba(2, 6, 23, 0.08);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -160,6 +171,7 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            position: relative; /* for dropdown positioning */
         }
 
         .logo {
@@ -238,6 +250,70 @@
             transform: none;
             box-shadow: none;
             border-color: transparent;
+        }
+
+        /* Header actions (shadcn-inspired icon buttons) */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--light-text);
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .icon-btn:hover {
+            background: rgba(14, 165, 233, 0.06);
+            border-color: rgba(14, 165, 233, 0.3);
+        }
+
+        .icon-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Overflow menu dropdown */
+        .menu-dropdown {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            min-width: 220px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: var(--shadow-dark);
+            padding: 8px;
+            display: none;
+            z-index: 1100;
+        }
+
+        .menu-dropdown.open {
+            display: block;
+        }
+
+        .menu-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .menu-dropdown a:hover {
+            background: rgba(14, 165, 233, 0.08);
         }
 
         /* Hero Section */
@@ -506,6 +582,12 @@
             nav ul {
                 gap: 15px;
             }
+            /* Hide desktop nav on very small screens; rely on overflow menu */
+            @media (max-width: 520px) {
+                nav ul {
+                    display: none;
+                }
+            }
             .hero-content h2 {
                 font-size: 2.8rem;
             }
@@ -559,15 +641,25 @@
                     <h1>Catalog Automation</h1>
                     <span class="made-in-india">Made in India</span>
                 </div>
-                <nav>
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="privacy-policy">Privacy Policy</a></li>
-                        <li><a href="terms-of-service">Terms of Service</a></li>
-                        <li><a href="docs">Documentation</a></li>
-                        <li><a href="contact-us">Contact Us</a></li>
-                    </ul>
-                </nav>
+                
+                <div class="header-actions">
+                    <button id="themeToggle" class="icon-btn" title="Toggle theme" aria-label="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="accountBtn" class="icon-btn" title="Account" aria-label="Account">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    <button id="overflowBtn" class="icon-btn" title="Menu" aria-label="Open menu">
+                        <i class="fas fa-ellipsis-vertical"></i>
+                    </button>
+                    <div id="overflowMenu" class="menu-dropdown" role="menu" aria-hidden="true">
+                        <a href="/" role="menuitem"><i class="fas fa-home"></i> Home</a>
+                        <a href="privacy-policy" role="menuitem"><i class="fas fa-user-shield"></i> Privacy Policy</a>
+                        <a href="terms-of-service" role="menuitem"><i class="fas fa-scale-balanced"></i> Terms of Service</a>
+                        <a href="docs" role="menuitem"><i class="fas fa-book"></i> Documentation</a>
+                        <a href="contact-us" role="menuitem"><i class="fas fa-envelope"></i> Contact Us</a>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -644,7 +736,15 @@
     <script>
         // Simple JavaScript for interactive elements
         document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('nav a');
+            // Theme setup: read from localStorage (default dark)
+            try {
+                const savedTheme = localStorage.getItem('cf_theme');
+                if (savedTheme === 'light') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            } catch (e) {}
+
+            const navLinks = document.querySelectorAll('#overflowMenu a');
 
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
@@ -657,9 +757,10 @@
             const isRoot = window.location.pathname === '/' || window.location.pathname === '/index.html';
 
             if (isRoot || currentPath === 'home') { 
-                document.querySelector('nav a[href="/"]').classList.add('active');
+                const homeLink = document.querySelector('#overflowMenu a[href="/"]');
+                if (homeLink) homeLink.classList.add('active');
             } else if (currentPath) {
-                const activeLink = document.querySelector(`nav a[href*="${currentPath.replace('.html', '')}"]`);
+                const activeLink = document.querySelector(`#overflowMenu a[href*="${currentPath.replace('.html', '')}"]`);
                 if (activeLink) {
                     activeLink.classList.add('active');
                 }
@@ -685,6 +786,48 @@
             document.querySelectorAll('.hero-content, .section-title, .feature-card, .step, .cta-section').forEach(el => {
                 observer.observe(el);
             });
+
+            // Overflow menu toggle
+            const overflowBtn = document.getElementById('overflowBtn');
+            const overflowMenu = document.getElementById('overflowMenu');
+            if (overflowBtn && overflowMenu) {
+                overflowBtn.addEventListener('click', () => {
+                    const isOpen = overflowMenu.classList.toggle('open');
+                    overflowMenu.setAttribute('aria-hidden', String(!isOpen));
+                });
+                document.addEventListener('click', (e) => {
+                    if (!overflowMenu.contains(e.target) && !overflowBtn.contains(e.target)) {
+                        overflowMenu.classList.remove('open');
+                        overflowMenu.setAttribute('aria-hidden', 'true');
+                    }
+                });
+            }
+
+            // Theme toggle
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+                    const next = isLight ? 'dark' : 'light';
+                    if (next === 'light') {
+                        document.documentElement.setAttribute('data-theme', 'light');
+                    } else {
+                        document.documentElement.removeAttribute('data-theme');
+                    }
+                    try { localStorage.setItem('cf_theme', next); } catch (e) {}
+                    // swap icon
+                    const icon = themeToggle.querySelector('i');
+                    if (icon) {
+                        icon.className = next === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+                    }
+                });
+                // initialize correct icon
+                const icon = themeToggle.querySelector('i');
+                if (icon) {
+                    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+                    icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+                }
+            }
         });
     </script>
     <!-- Footer -->
