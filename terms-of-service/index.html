@@ -33,7 +33,7 @@
             --accent: #0ea5e9; /* A bright, but clean blue for accents */
             --light-text: #e2e8f0; /* Off-white for text */
             --dark-bg: #0f172a; /* Dark charcoal for background */
-            --card-bg: rgba(255, 255, 255, 0.08); /* Transparent white for a different mixing effect */
+            --card-bg: #1e293b; /* Solid card background for full opacity */
             --border-color: rgba(68, 88, 120, 0.2); /* Even subtler border */
             --glass-blur: blur(0px); /* Removed blur for a focused look */
             --gradient-one: linear-gradient(135deg, var(--dark-bg), #1e293b); /* Softer gradient */
@@ -50,6 +50,7 @@
         }
 
         body {
+            margin: 0;
             background: var(--gradient-one);
             color: var(--light-text);
             font-family: 'Inter', sans-serif; /* Modern, clean font */
@@ -57,6 +58,7 @@
             overflow-x: hidden;
             background-attachment: fixed;
             text-rendering: optimizeLegibility;
+            padding-top: 70px; /* To account for the fixed header's height */
         }
 
         #liquidCanvas {
@@ -149,11 +151,14 @@
 
         /* Header & Navigation */
         header {
-            background: rgba(255, 255, 255, 0.08); /* Transparent white for a different mixing effect */
-            backdrop-filter: var(--glass-blur);
+            background: var(--dark-bg);
             padding: 15px 0;
             box-shadow: var(--shadow-light);
             border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            width: 100%; /* Ensure it spans the full width */
         }
 
         .header-content {
@@ -242,8 +247,7 @@
 
         /* Page Title */
         .page-title {
-            background: rgba(255, 255, 255, 0.08); /* Transparent white for a different mixing effect */
-            backdrop-filter: var(--glass-blur);
+            background: var(--dark-bg);
             padding: 80px 0;
             text-align: center;
             margin-bottom: 40px;
@@ -273,8 +277,7 @@
         }
 
         .content-card {
-            background: var(--card-bg);
-            backdrop-filter: var(--glass-blur);
+            background: var(--dark-bg);
             border-radius: 12px;
             padding: 30px;
             box-shadow: var(--shadow-light);
@@ -387,8 +390,7 @@
         /* Footer */
         footer {
             padding: 40px 0;
-            background: rgba(255, 255, 255, 0.08); /* Transparent white for a different mixing effect */
-            backdrop-filter: var(--glass-blur);
+            background: var(--dark-bg);
             text-align: center;
             margin-top: 50px;
             border-top: 1px solid var(--border-color);
